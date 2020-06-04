@@ -51,8 +51,6 @@ class UserModelClass {
     });
   }
 
-
-
   registerUser(registerData, callback) {   
     var hashPassword=bcryptPassword.hashFunction(registerData.body.password)
     let newUser = new userModel({
