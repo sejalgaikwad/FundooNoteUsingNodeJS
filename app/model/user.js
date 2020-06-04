@@ -3,13 +3,13 @@ var schema = mongoose.Schema;
 
 // defining the mongodb schema
 var userSchema = new schema({                                  
-    firstname: {
+    firstName: {
         type: String,
         require: [true, "First Name can't be Empty"],
         trim: true
     },
 
-    lastname: {
+    lastName: {
         type: String,
         require: [true, "Last Name can't be Empty"],
         trim: true
@@ -37,5 +37,36 @@ var userSchema = new schema({
 {
     timestamps: true
 });
-module.exports = mongoose.model('usermodel', userSchema);              
+var userModel =  mongoose.model('User', userSchema);  
 
+class UserModelClass {
+  findOne(findData, callback) {
+    userModel.findOne(findData, (err, data) => {
+      if (err) {
+        console.log("ERROR in findOne :: " + err);
+        return callback(err, null);
+      } else {
+        console.log("Data in findOne :: " + data);
+        return callback(null, data);
+      }
+    });
+  }
+
+  registerUser(registerData, callback) {   
+    let newUser = new userModel({
+      firstName: registerData.body.firstName,
+      lastName: registerData.body.lastName,
+      email: registerData.body.email,
+      password: registerData.body.password
+    });
+    newUser.save((err, data) => {
+      if (err) {           
+        return callback(err, null);
+      } else {
+        return callback(null, data);
+      }
+    });
+  }
+}
+
+module.exports = { userModel , UserModelClass}
