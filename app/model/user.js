@@ -1,3 +1,4 @@
+const bcryptPassword=require('../../utility/bcryptPassword')
 const mongoose = require('mongoose');
 var schema = mongoose.Schema;
 
@@ -43,21 +44,22 @@ class UserModelClass {
   findOne(findData, callback) {
     userModel.findOne(findData, (err, data) => {
       if (err) {
-        console.log("ERROR in findOne :: " + err);
         return callback(err, null);
       } else {
-        console.log("Data in findOne :: " + data);
         return callback(null, data);
       }
     });
   }
 
+
+
   registerUser(registerData, callback) {   
+    var hashPassword=bcryptPassword.hashFunction(registerData.body.password)
     let newUser = new userModel({
       firstName: registerData.body.firstName,
       lastName: registerData.body.lastName,
       email: registerData.body.email,
-      password: registerData.body.password
+      password: hashPassword
     });
     newUser.save((err, data) => {
       if (err) {           
