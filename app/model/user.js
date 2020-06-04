@@ -38,3 +38,4 @@ var userSchema = new schema({
     timestamps: true
 });
 module.exports = mongoose.model('usermodel', userSchema);              
+
