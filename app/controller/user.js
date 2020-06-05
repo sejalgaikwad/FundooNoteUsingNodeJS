@@ -1,6 +1,7 @@
 const userService = require('../service/user')
 const userServiceObjet = new userService.UserServiceClass();
-const tokenGenerator = require('../../utility/tokenGenration')
+const tokenGenerator = require('../../utility/tokenGenration');
+const sendMail = require('../../service/nodemailer').sendEmailFunction
 
 class UserContollerClass{
     registerUser(registerData, res){
@@ -22,6 +23,8 @@ class UserContollerClass{
                     var payload = { _id: data._id,email: data.email
                     };
                     var token = tokenGenerator.tokenGeneration(payload);
+                    const url = 'http://localhost:4000/verifyUser/'+ token
+                    sendMail(url)
                     response.success = true;
                     response.result = data;
                     response.token = token;
