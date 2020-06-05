@@ -34,5 +34,16 @@ class UserContollerClass{
             })
         }
     }
+    
+    verifyUser (req, res)  {
+        userServiceObjet.verifyUser(req.body,req.decoded, (err, data) => {              
+            if (err) {
+                return res.status(500).send({ message: err })
+            } else{  
+                return res.status(200).send({ message: data })
+            }
+        })
+    }
 }
+
 module.exports = new UserContollerClass();

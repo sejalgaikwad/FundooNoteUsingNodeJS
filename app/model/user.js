@@ -67,6 +67,16 @@ class UserModelClass {
       }
     });
   }
-}
 
+  updateData  (body, decoded, callback)  {       
+    userModel.findByIdAndUpdate(body,decoded, (err, data) => {
+        if (err) {
+            return callback(err)
+        } else {            
+            return callback(null, data)
+        }
+    })
+  }
+
+}
 module.exports = { userModel , UserModelClass}

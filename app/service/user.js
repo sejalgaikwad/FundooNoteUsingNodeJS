@@ -18,6 +18,18 @@ class UserServiceClass{
             } 
         })
     }
+    
+    verifyUser(body,decoded, callback){
+        userModelObjet.updateData( {'_id':decoded._id }, {$set: { isVerified: true  }}, (err,data)=>{
+            if(err){
+                return callback (err)
+            }else{
+                return callback (null,data)
+            }
+        })
+    }
 }
+    
+
 
 module.exports = { UserServiceClass }
