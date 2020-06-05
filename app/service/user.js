@@ -51,6 +51,18 @@ class UserServiceClass{
             }
         });
     }
+
+    forgotPassword  (userData, callback)  {
+        userModelObjet.findOne({'email': userData.email}, (err, data) => {
+            if (err) {
+                return callback(err)
+            } else if (data) {
+                return callback(null, data)
+            } else {
+                return callback("Invalid User")
+            }
+        })
+    }
 }
     
 module.exports = { UserServiceClass }

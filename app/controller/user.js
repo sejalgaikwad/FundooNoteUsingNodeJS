@@ -82,6 +82,36 @@ class UserContollerClass{
             });
         }
     }
+
+    forgotPassword (req, res){
+        req.checkBody('email', 'email is not valid').isEmail();
+        var errors = req.validationErrors();
+        var response = {}
+        if (errors) {
+            response.success = 'false',
+            response.error = errors;
+            return res.status(422).send(response);
+        } else {
+            userServiceObjet.forgotPassword(req.body, (err, data) => {
+                if (err) {
+                    response.success = 'false',
+                    response.error = errors;
+                    return res.status(500).send({response})
+                } else {
+                    const payload ={user_id:data._id}
+                    var token = tokenGenerator.tokenGeneration(payload);
+                    const url = 'http://localhost:4000/resetPassword/' + token
+                    sendMail(url)
+                    response.success = true;
+                    response.result = data;
+                    response.message = 'Reset password Link send on your Email...'
+                    response.url=url;
+                    return res.status(200).send({response})
+                }
+            })
+        }
+    }
+
 }
 
 module.exports = new UserContollerClass();
