@@ -44,6 +44,44 @@ class UserContollerClass{
             }
         })
     }
+
+    loginUser(req, res) {        
+        req.checkBody("email", "Email is not valid").notEmpty().isEmail();
+        req.checkBody("password", "Password is not valid").notEmpty() .isLength({ min: 8 });
+        var errors = req.validationErrors();
+        var response = {};
+        if (errors) {
+            response.success = false;
+            response.error = errors;
+            return res.status(400).send(response);
+        } else {
+            const loginData = {};
+            (loginData.email = req.body.email),
+            (loginData.password = req.body.password);
+    
+            userServiceObjet.loginUser(loginData, (err, data) => {
+                if (err) {
+                    response.success = false;
+                    response.error = err;
+                    return res.status(400).send(response);
+                } else if (data) {
+                    if (data == "not verified") {
+                    response.success = false;
+                    response.message = "Please Verify before Login";
+                    return res.status(200).send(response);
+                    } else {
+                        var payload = {_id: data._id,email: data.email};
+                        var token = tokenGenerator.tokenGeneration(payload);
+                        response.success = true;
+                        response.message = "Login Successful...";
+                        response.data = data;
+                        response.token = token;    
+                        return res.status(200).send(response);
+                    }
+                }
+            });
+        }
+    }
 }
 
 module.exports = new UserContollerClass();

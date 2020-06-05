@@ -1,3 +1,4 @@
+const bcrypt = require('bcryptjs')
 const userModel = require('../model/user')
 const userModelObjet = new userModel.UserModelClass();
 
@@ -28,8 +29,28 @@ class UserServiceClass{
             }
         })
     }
+
+    loginUser(loginData, callback) {
+        userModelObjet.findOne({ email: loginData.email }, (err, data) => {
+            if (data == null) {
+              return callback({ message: "invalid email" }, null);
+            } else if (err) {
+              return callback(err, null);
+            } else {
+              if (data.isVerified == false) {
+                return callback(null, "not verified");
+                } else {
+                    bcrypt.compare(loginData.password, data.password, (err, res) => {
+                        if (res) {
+                            return callback(null, data);
+                        } else {
+                            return callback("Invalid Password", null);
+                        }
+                    });
+                }
+            }
+        });
+    }
 }
     
-
-
 module.exports = { UserServiceClass }
