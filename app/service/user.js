@@ -1,4 +1,4 @@
-const bcrypt = require('bcryptjs')
+const bcryptPassword=require('../../utility/bcryptPassword')
 const userModel = require('../model/user')
 const userModelObjet = new userModel.UserModelClass();
 
@@ -65,7 +65,8 @@ class UserServiceClass{
     }
 
     resetPassword(body,decoded, callback){
-        userModelObjet.updateData({'_id': decoded.user_id }, {$set: {  password: body.newPassword}
+        var hashPassword=bcryptPassword.hashFunction(body.newPassword)
+        userModelObjet.updateData({'_id': decoded.user_id }, {$set: {  password: hashPassword}
         }, (err,data)=>{
             if(err){
                 return callback (err)
