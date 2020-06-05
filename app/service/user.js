@@ -63,6 +63,17 @@ class UserServiceClass{
             }
         })
     }
+
+    resetPassword(body,decoded, callback){
+        userModelObjet.updateData({'_id': decoded.user_id }, {$set: {  password: body.newPassword}
+        }, (err,data)=>{
+            if(err){
+                return callback (err)
+            }else{
+                return callback (null,data)
+            }
+        })
+    }
 }
     
 module.exports = { UserServiceClass }

@@ -112,6 +112,28 @@ class UserContollerClass{
         }
     }
 
+    resetPassword (req, res)  {
+        req.checkBody('newPassword', 'password is not valid').isLength({ min: 8 })
+        var errors = req.validationErrors();
+        var response = {}
+        if (errors) {
+            response.success = 'false',
+            response.error = errors;
+            return res.status(422).send(response);
+        } else {
+            userServiceObjet.resetPassword(req.body,req.decoded, (err, data) => {                 
+                if (err) {
+                    response.success = 'false',
+                    response.message = "try again,reset password unsuccessful";
+                    return res.status(500).send({response})
+                } else {
+                    response.success = 'true',
+                    response.message = "Reset password successfully";
+                    return res.status(200).send({response})
+                }
+            })
+        }
+    }
 }
 
 module.exports = new UserContollerClass();
