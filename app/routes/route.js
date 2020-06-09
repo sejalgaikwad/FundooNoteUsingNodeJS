@@ -10,6 +10,7 @@ const routes = express.Router();
 
 const userController = require('../controller/user');
 const noteController = require('../controller/note');
+const labelController = require('../controller/label')
 const tokenVerify = require ('../../utility/tokenVerification');
 
 routes.post("/register", userController.registerUser );
@@ -20,6 +21,9 @@ routes.post("/resetPassword",tokenVerify.tokenVerification,userController.resetP
 
 routes.post("/createNote", tokenVerify.tokenVerification, noteController.createNote);
 routes.post("/note/:noteId",tokenVerify.tokenVerification, noteController.updateNote);
+
+routes.post("/createLabel", tokenVerify.tokenVerification, labelController.createNote);
+routes.post("/note/:noteId",tokenVerify.tokenVerification, labelController.updateNote);
 
 
 
