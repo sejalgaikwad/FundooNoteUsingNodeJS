@@ -31,6 +31,45 @@ class LabelControllerClass {
         }
     }
 
+    updateLabel(req, res) {
+        const response = {};
+            const idData = {};
+            const updateData = {};
+            idData._id = req.params.labelId;           
+            updateData.labelName = req.body.labelName;
+        
+            labelServiceClassObject
+              .updateLabel(idData, updateData)
+              .then(data => {
+                response.success = true;
+                response.message = "Label Successfully Updated";
+                response.data = data;
+                return res.status(200).send(response);
+              })
+              .catch(err => {
+                response.success = false;
+                response.error = err;
+                return res.status(400).send(response);
+            });
+        }
+
+        getAllLabels(req, res) {
+            const getAllLabelData = {};
+            const response = {};
+            getAllLabelData.userId = req.decoded._id;
+            labelServiceClassObject.getAllLabels(getAllLabelData)
+              .then(data => {
+                response.success = true;
+                response.message='Get all Label data ';
+                response.data = data;
+                return res.status(200).send(response);
+              })
+              .catch(err => {
+                response.success = false;
+                response.error = err;
+                return res.status(400).send(response);
+              });
+          }
 }    
 
 module.exports = new LabelControllerClass();

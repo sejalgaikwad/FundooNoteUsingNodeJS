@@ -16,11 +16,11 @@ var labelSchema = new schema({
 {
     timestamps: true
 });
-var labelModel =  mongoose.model('Label', labelSchema); 
+var LabelModel =  mongoose.model('Label', labelSchema); 
 
 class LabelModelClass{
     createLabel(labelData){
-        let newLabel=new labelModel({
+        let newLabel=new LabelModel({
             labelName:labelData.labelName,
             user_Id:labelData.user_Id
         })
@@ -31,6 +31,34 @@ class LabelModelClass{
             })
             .catch(err => {
                 return reject(err);
+            });
+        });
+    }
+
+    updateLabel(idData, updateData) {  
+        return new Promise((resolve, reject) => {
+            LabelModel.findOneAndUpdate(idData,updateData,{ new: true })
+            .then(data => {
+                if (data != null) {
+                    return resolve(data);
+                } else {
+                    return reject("invalid NoteId");
+                }
+            })
+            .catch(err => {
+               return reject(err);
+            });
+        });
+    }
+
+    getallLabels() {
+        return new Promise((resolve, reject) => {
+            LabelModel.find()
+            .then(data => {
+              return resolve(data);
+            })
+            .catch(err => {
+              return reject(err);
             });
         });
     }

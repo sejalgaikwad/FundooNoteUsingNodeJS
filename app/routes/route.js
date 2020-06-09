@@ -23,8 +23,8 @@ routes.post("/createNote", tokenVerify.tokenVerification, noteController.createN
 routes.post("/note/:noteId",tokenVerify.tokenVerification, noteController.updateNote);
 
 routes.post("/createLabel", tokenVerify.tokenVerification, labelController.createLabel);
-
-
+routes.post("/label/:labelId",tokenVerify.tokenVerification, labelController.updateLabel);
+routes.get("/getAllLabels",tokenVerify.tokenVerification, labelController.getAllLabels);
 
 module.exports = routes;
 

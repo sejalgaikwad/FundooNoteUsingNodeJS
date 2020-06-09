@@ -12,7 +12,32 @@ class LabelServiceClass {
                 return reject(err);
             });
         });
-    } 
+    }
+    
+    updateLabel(idData, updateData) {
+        return new Promise((resolve, reject) => {
+            labelModelClassObject
+            .updateLabel(idData, updateData)
+            .then(data => {
+                return resolve(data);
+            })
+            .catch(err => {
+                return reject(err);
+            });
+        });
+    }
+
+    getAllLabels(getAllLabelData) {
+        return new Promise((resolve, reject) => {
+            labelModelClassObject.getallLabels()
+            .then(data => {
+              return resolve(data);
+            })
+            .catch(err => {
+              return reject(err);
+            });
+        });
+    }
 
 } 
 
