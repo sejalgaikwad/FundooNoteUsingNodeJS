@@ -32,8 +32,29 @@ class NoteControllerClass {
             });
         }
     }
-    
-}    
 
+    updateNote(req, res) {
+        const response = {};
+            const idData = {};
+            const updateData = {};
+            idData._id = req.params.noteId;           
+            updateData.title = req.body.title;
+            updateData.description = req.body.description;
+        
+            noteServiceClassObject
+              .updateNote(idData, updateData)
+              .then(data => {
+                response.success = true;
+                response.message = "Note Successfully Updated";
+                response.data = data;
+                return res.status(200).send(response);
+              })
+              .catch(err => {
+                response.success = false;
+                response.error = err;
+                return res.status(400).send(response);
+              });
+          }
+}    
 
 module.exports = new NoteControllerClass();

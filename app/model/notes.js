@@ -53,6 +53,23 @@ class NoteModelClass{
             });
         });
     }
+
+    updateNote(idData, updateData) {  
+        return new Promise((resolve, reject) => {
+            noteModel.findOneAndUpdate(idData,updateData,{ new: true })
+            .then(data => {
+                if (data != null) {
+                    return resolve(data);
+                } else {
+                    return reject("invalid NoteId");
+                }
+            })
+            .catch(err => {
+               return reject(err);
+            });
+        });
+    }
+
 }
 
 module.exports = new NoteModelClass();

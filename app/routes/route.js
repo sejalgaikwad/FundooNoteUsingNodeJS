@@ -19,6 +19,7 @@ routes.post("/forgotPassword",userController.forgotPassword);
 routes.post("/resetPassword",tokenVerify.tokenVerification,userController.resetPassword);
 
 routes.post("/createNote", tokenVerify.tokenVerification, noteController.createNote);
+routes.post("/note/:noteId",tokenVerify.tokenVerification, noteController.updateNote);
 
 module.exports = routes;
 
