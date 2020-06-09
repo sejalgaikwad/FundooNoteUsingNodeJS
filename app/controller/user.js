@@ -1,9 +1,24 @@
+/******************************************************************************
+ *  @description    : Controllers process incoming requests, handle user input
+ *                    and interactions, and execute appropriate application logic
+ *  @file           : user.js
+ *  @since          : 04-06-2020
+ ******************************************************************************/
 const userService = require('../service/user')
 const userServiceObjet = new userService.UserServiceClass();
 const tokenGenerator = require('../../utility/tokenGenration');
 const sendMail = require('../../service/nodemailer').sendEmailFunction
 
 class UserContollerClass{
+
+/***********************************************************************************
+* @description: The user registration API can be used to create user accounts 
+*               in the application
+* @param {object} registerData
+* @param {object} res
+* @return {object} response
+*************************************************************************************/
+
     registerUser(registerData, res){
         registerData.checkBody('firstName', 'firstName is not valid').isLength({min: 3}).isAlpha().notEmpty();
         registerData.checkBody('lastName', 'lastName is not valid').isLength({min: 1}).isAlpha().notEmpty();
@@ -34,7 +49,14 @@ class UserContollerClass{
             })
         }
     }
-    
+
+/***********************************************************************************
+* @description: verifyUser API for verifying valid user using token verification.
+* @param {object} req
+* @param {object} res
+* @return {object} response
+*************************************************************************************/
+
     verifyUser (req, res)  {
         userServiceObjet.verifyUser(req.body,req.decoded, (err, data) => {              
             if (err) {
@@ -44,6 +66,14 @@ class UserContollerClass{
             }
         })
     }
+
+/***********************************************************************************
+* @description: The user Login API can be used to login user in the application using 
+                email, password.
+* @param {object} req
+* @param {object} res
+* @return {object} response
+*************************************************************************************/
 
     loginUser(req, res) {        
         req.checkBody("email", "Email is not valid").notEmpty().isEmail();
@@ -83,6 +113,13 @@ class UserContollerClass{
         }
     }
 
+/***********************************************************************************
+* @description: The Forgot Password API can be used when user forgot the password.
+* @param {object} req
+* @param {object} res
+* @return {object} response
+*************************************************************************************/
+
     forgotPassword (req, res){
         req.checkBody('email', 'email is not valid').isEmail();
         var errors = req.validationErrors();
@@ -111,6 +148,13 @@ class UserContollerClass{
             })
         }
     }
+
+/***********************************************************************************
+* @description: The Reset Password API can be used to set a new password.
+* @param {object} req
+* @param {object} res
+* @return {object} response
+*************************************************************************************/
 
     resetPassword (req, res)  {
         req.checkBody('newPassword', 'password is not valid').isLength({ min: 8 })

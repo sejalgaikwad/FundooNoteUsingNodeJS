@@ -1,3 +1,8 @@
+/******************************************************************************
+ *  @description    : Generating token for verify user using jwt.sign()
+ *  @file           : tokenGenration.js
+ *  @since          : 04-06-2020
+ ******************************************************************************/
 const jwt = require("jsonwebtoken");
 const SECRETKEY = process.env.SECRETKEY;
 module.exports = {

@@ -1,8 +1,23 @@
+/******************************************************************************
+ *  @description    : The service layer contains business logic.
+ *  @file           : user.js
+ *  @since          : 04-06-2020
+ ******************************************************************************/
+
+const bcrypt =require ('bcryptjs')
 const bcryptPassword=require('../../utility/bcryptPassword')
 const userModel = require('../model/user')
 const userModelObjet = new userModel.UserModelClass();
 
 class UserServiceClass{
+
+/***********************************************************************************
+* @description:     The user registration API can be used to create user accounts 
+*                   in the application if it is already exist throw error.
+* @param {object}   registerData
+* @param {object}   callback
+*************************************************************************************/
+
     registerUser(registerData, callback){       
         const findData = { email: registerData.body.email };
         userModelObjet.findOne(findData, (err, data) => {
@@ -19,7 +34,14 @@ class UserServiceClass{
             } 
         })
     }
-    
+
+/***********************************************************************************
+* @description:     verifyUser API for verifying valid user.
+* @param {object}   body
+* @param {object}   decoded
+* @param {object}   callback
+*************************************************************************************/
+
     verifyUser(body,decoded, callback){
         userModelObjet.updateData( {'_id':decoded._id }, {$set: { isVerified: true  }}, (err,data)=>{
             if(err){
@@ -29,6 +51,13 @@ class UserServiceClass{
             }
         })
     }
+
+/***********************************************************************************
+* @description: The user Login API can be used to login user in the application using 
+                email, password.
+* @param {object} loginData
+* @param {object} callback
+*************************************************************************************/
 
     loginUser(loginData, callback) {
         userModelObjet.findOne({ email: loginData.email }, (err, data) => {
@@ -52,6 +81,12 @@ class UserServiceClass{
         });
     }
 
+/***********************************************************************************
+* @description: The Forgot Password API can be used when user forgot the password.
+* @param {object} userData
+* @param {object} callback
+*************************************************************************************/
+
     forgotPassword  (userData, callback)  {
         userModelObjet.findOne({'email': userData.email}, (err, data) => {
             if (err) {
@@ -63,6 +98,13 @@ class UserServiceClass{
             }
         })
     }
+
+/***********************************************************************************
+* @description: The Reset Password API can be used to set a new password.
+* @param {object} body
+* @param {object} decoded
+* @param {object} callback
+*************************************************************************************/
 
     resetPassword(body,decoded, callback){
         var hashPassword=bcryptPassword.hashFunction(body.newPassword)

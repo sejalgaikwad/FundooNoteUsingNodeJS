@@ -1,3 +1,9 @@
+/************************************************************************************
+ *  @description    : mongoose.connect() use to set up a connection with the database. 
+ *  @file           : mongoDB.js
+ *  @since          : 04-06-2020
+ *************************************************************************************/
+
 const mongoose = require("mongoose");
 const MONGODB_URL = process.env.MONGODB_URL;
 
