@@ -51,6 +51,23 @@ class LabelModelClass{
         });
     }
 
+    deleteLabel(deleteData) {
+        return new Promise((resolve, reject) => {
+          LabelModel
+            .findOneAndRemove(deleteData)
+            .then(data => {
+              if (data != null) {
+                return resolve(data);
+              } else if (data == null) {
+                return reject(data);
+              }
+            })
+            .catch(err => {
+              return reject(err);
+            });
+        });
+      }
+
     getallLabels() {
         return new Promise((resolve, reject) => {
             LabelModel.find()

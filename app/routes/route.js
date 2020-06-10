@@ -24,6 +24,7 @@ routes.post("/note/:noteId",tokenVerify.tokenVerification, noteController.update
 
 routes.post("/createLabel", tokenVerify.tokenVerification, labelController.createLabel);
 routes.post("/label/:labelId",tokenVerify.tokenVerification, labelController.updateLabel);
+routes.delete("/label/:labelId",tokenVerify.tokenVerification, labelController.removeLabel);
 routes.get("/getAllLabels",tokenVerify.tokenVerification, labelController.getAllLabels);
 
 module.exports = routes;
