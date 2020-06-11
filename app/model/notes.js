@@ -96,6 +96,25 @@ class NoteModelClass{
             });
         });
     }
+
+    search(query,filerData) {
+        return new Promise((resolve, reject) => {
+            noteModel.find({
+                $and: [{$or: [{ title: { $regex: query.searchKey, $options: "i" } },
+                              { description: { $regex: query.searchKey, $options: "i" }} ]},
+                              { userId: query.userId,isTrash:false}]},filerData)
+            .then(data => {
+                if (data !== null) {
+                    return resolve(data);
+                } else {
+                    return reject(data);
+                }
+            })
+            .catch(err => {
+              return reject(err);
+            });
+        });
+    }
 }
 
 module.exports = new NoteModelClass();

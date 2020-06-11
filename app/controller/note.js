@@ -128,6 +128,29 @@ class NoteControllerClass {
         });
     }
 
+    search(req, res) {
+        const response = {};
+        const searchData = {};
+        searchData.user_Id = req.decoded._id;
+        searchData.searchKey = req.body.searchKey;
+        noteServiceClassObject.search(searchData)
+        .then(data => {
+            if (data == null) {
+                response.success = false;
+                response.error = "Invalid UserId";
+                return res.status(400).send(response);
+            } else {
+                response.success = true;
+                response.data = data;
+                return res.status(200).send(response);
+            }
+        })
+        .catch(err => {
+            response.success = false;
+            response.error = err;
+            return res.status(400).send(response);
+        });
+  }
 }    
 
 module.exports = new NoteControllerClass();

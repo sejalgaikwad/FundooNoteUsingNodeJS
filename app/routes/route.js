@@ -24,6 +24,7 @@ routes.post("/note/:noteId",tokenVerify.tokenVerification, noteController.update
 routes.get("/getAllNotes",tokenVerify.tokenVerification,noteController.getAllNotes);
 routes.get("/getAllTrashNotes",tokenVerify.tokenVerification,noteController.getAllTrashNotes);
 routes.get("/getAllArchiveNotes",tokenVerify.tokenVerification,noteController.getAllArchiveNotes);
+routes.get("/search",tokenVerify.tokenVerification,noteController.search);
 
 routes.post("/createLabel", tokenVerify.tokenVerification, labelController.createLabel);
 routes.post("/label/:labelId",tokenVerify.tokenVerification, labelController.updateLabel);

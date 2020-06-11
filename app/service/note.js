@@ -72,6 +72,23 @@ class NoteServiceClass {
             });
         });
     }
+
+    search(searchData) {
+        return new Promise((resolve, reject) => {
+            noteModelClassObject.search(searchData, {title: 1,description: 1})
+            .then(data => {
+                if (data !== null) {
+                    return resolve(data);
+                } else {
+                    return reject(data);
+                }
+            })
+            .catch(err => {
+                return reject(err);
+            });
+        });
+    }
+
    
 } 
 
