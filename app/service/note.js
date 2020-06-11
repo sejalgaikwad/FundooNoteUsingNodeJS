@@ -14,10 +14,9 @@ class NoteServiceClass {
         });
     } 
     
-    updateNote(idData, updateData) {
+    updateNote(idData, updateData) {    
         return new Promise((resolve, reject) => {
-            noteModelClassObject
-            .updateNote(idData, updateData)
+            noteModelClassObject.updateNote(idData, updateData)
             .then(data => {
                 return resolve(data);
             })
@@ -26,7 +25,7 @@ class NoteServiceClass {
             });
         });
     }
-    
+       
 } 
 
 module.exports = new NoteServiceClass();

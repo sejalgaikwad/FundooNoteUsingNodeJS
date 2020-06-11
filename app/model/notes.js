@@ -23,7 +23,22 @@ var noteSchema = new schema({
     user_Id : {
         type: schema.Types.ObjectId,
         ref: 'User',
-    }
+    },
+    isArchive : {
+        type:Boolean,
+        default:false
+    },
+    isTrash : {
+        type:Boolean,
+        default:false
+    },
+    isPinned :{
+        type:Boolean,
+        default:false
+    },
+    color: {
+      type: String
+    },
 }, 
 {
     timestamps: true
@@ -54,22 +69,22 @@ class NoteModelClass{
         });
     }
 
-    updateNote(idData, updateData) {  
+    updateNote(updateData, dataToBeUpadted) {
         return new Promise((resolve, reject) => {
-            noteModel.findOneAndUpdate(idData,updateData,{ new: true })
-            .then(data => {
-                if (data != null) {
-                    return resolve(data);
-                } else {
-                    return reject("invalid NoteId");
-                }
-            })
-            .catch(err => {
-               return reject(err);
-            });
+            noteModel.findOneAndUpdate(updateData,dataToBeUpadted,{ new: true })
+                .then(data => {
+                    if (data != null) {
+                        return resolve(data);
+                    } else {
+                        return reject("invalid NoteId");
+                    }
+                })
+                .catch(err => {
+                    return reject(err);
+                });
         });
     }
-
+  
 }
 
 module.exports = new NoteModelClass();

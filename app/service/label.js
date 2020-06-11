@@ -27,7 +27,18 @@ class LabelServiceClass {
         });
     }
 
-    
+    removeLabel(removeLabel) {
+        return new Promise((resolve, reject) => {
+            const deleteData = { _id: removeLabel.labelId };
+            labelModelClassObject.deleteLabel(deleteData)
+            .then(data => {
+              return resolve(data);
+            })
+            .catch(err => {
+              return reject(err);
+            });
+        });
+    }
 
     getAllLabels(getAllLabelData) {
         return new Promise((resolve, reject) => {
@@ -40,21 +51,6 @@ class LabelServiceClass {
             });
         });
     }
-
-    removeLabel(removeLabel) {
-        return new Promise((resolve, reject) => {
-          const deleteData = { _id: removeLabel.labelId };
-          labelModelClassObject
-            .deleteLabel(deleteData)
-            .then(data => {
-              return resolve(data);
-            })
-            .catch(err => {
-              return reject(err);
-            });
-        });
-      }
-    
 
 } 
 

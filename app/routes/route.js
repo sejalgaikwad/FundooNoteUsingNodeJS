@@ -9,7 +9,7 @@ const express = require('express');
 const routes = express.Router();
 
 const userController = require('../controller/user');
-const noteController = require('../controller/note');
+const noteController = require('../controller/note')
 const labelController = require('../controller/label')
 const tokenVerify = require ('../../utility/tokenVerification');
 
@@ -28,4 +28,3 @@ routes.delete("/label/:labelId",tokenVerify.tokenVerification, labelController.r
 routes.get("/getAllLabels",tokenVerify.tokenVerification, labelController.getAllLabels);
 
 module.exports = routes;
-
