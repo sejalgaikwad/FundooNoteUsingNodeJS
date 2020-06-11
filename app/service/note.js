@@ -57,6 +57,21 @@ class NoteServiceClass {
             });
         });
     }
+
+    getAllArchiveNotes(getAllNotesData) {
+        return new Promise((resolve, reject) => {
+            noteModelClassObject.readNotes({
+                user_Id: getAllNotesData.userId,
+                isArchive: true
+            })
+            .then(data => {
+                return resolve(data);
+            })
+            .catch(err => {
+                return reject(err);
+            });
+        });
+    }
    
 } 
 

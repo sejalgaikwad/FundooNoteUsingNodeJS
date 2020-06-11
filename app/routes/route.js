@@ -23,6 +23,7 @@ routes.post("/createNote", tokenVerify.tokenVerification, noteController.createN
 routes.post("/note/:noteId",tokenVerify.tokenVerification, noteController.updateNote);
 routes.get("/getAllNotes",tokenVerify.tokenVerification,noteController.getAllNotes);
 routes.get("/getAllTrashNotes",tokenVerify.tokenVerification,noteController.getAllTrashNotes);
+routes.get("/getAllArchiveNotes",tokenVerify.tokenVerification,noteController.getAllArchiveNotes);
 
 routes.post("/createLabel", tokenVerify.tokenVerification, labelController.createLabel);
 routes.post("/label/:labelId",tokenVerify.tokenVerification, labelController.updateLabel);
