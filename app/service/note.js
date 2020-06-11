@@ -42,6 +42,21 @@ class NoteServiceClass {
             });
         });
     }
+
+     getAllTrashNotes(getAllNotesData) {
+        return new Promise((resolve, reject) => {
+            noteModelClassObject.readNotes({
+                user_Id: getAllNotesData.userId,
+                isTrash: true
+            })
+            .then(data => {
+                return resolve(data);
+            })
+            .catch(err => {
+                return reject(err);
+            });
+        });
+    }
    
 } 
 

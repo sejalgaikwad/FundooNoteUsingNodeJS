@@ -22,6 +22,7 @@ routes.post("/resetPassword",tokenVerify.tokenVerification,userController.resetP
 routes.post("/createNote", tokenVerify.tokenVerification, noteController.createNote);
 routes.post("/note/:noteId",tokenVerify.tokenVerification, noteController.updateNote);
 routes.get("/getAllNotes",tokenVerify.tokenVerification,noteController.getAllNotes);
+routes.get("/getAllTrashNotes",tokenVerify.tokenVerification,noteController.getAllTrashNotes);
 
 routes.post("/createLabel", tokenVerify.tokenVerification, labelController.createLabel);
 routes.post("/label/:labelId",tokenVerify.tokenVerification, labelController.updateLabel);
