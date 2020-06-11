@@ -76,6 +76,24 @@ class NoteControllerClass {
             return res.status(400).send(response);
         });
     }
+
+    getAllNotes(req, res) {
+        const getAllNotesData = {};
+        const response = {}
+        getAllNotesData.userId = req.decoded._id;
+        noteServiceClassObject.getAllNotes(getAllNotesData)
+        .then(data => {
+            response.success = true;
+            response.data = data;
+            return res.status(200).send(response);
+        })
+        .catch(err => {
+          response.success = false;
+          response.error = err;
+          return res.status(400).send(response);
+        });
+    }
+
 }    
 
 module.exports = new NoteControllerClass();

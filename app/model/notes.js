@@ -84,7 +84,18 @@ class NoteModelClass{
                 });
         });
     }
-  
+
+    readNotes(findData) {
+        return new Promise((resolve, reject) => {
+            noteModel.find(findData)
+            .then(data => {
+                return resolve(data)
+            })
+            .catch(err => {
+                return reject(err);
+            });
+        });
+    }
 }
 
 module.exports = new NoteModelClass();
