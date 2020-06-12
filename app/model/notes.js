@@ -120,33 +120,5 @@ class NoteModelClass{
             });
         });
     }
-
-  //    create(queryData) {
-  //   logger.info("controll1");
-  //   let collaboratorData = new collaborator({
-  //     userId: queryData.userId,
-  //     noteId: queryData.noteId,
-  //     collaboratorId: queryData.collaboratorId
-  //   });
-  //   /** @description save() methods are used to update document into a collection.
-  //                           save() method replaces the existing document with the document
-  //                           passed in save() method.*/
-
-  //   return new Promise((resolve, reject) => {
-  //     logger.info("........0.....");
-
-  //     collaboratorData
-  //       .save()
-  //       .then(data => {
-  //         logger.info("Data :: " + data);
-  //         return resolve(data);
-  //       })
-  //       .catch(err => {
-  //         logger.info("error :: " + err);
-  //         return reject(err);
-  //       });
-  //   });
-  // }
 }
-
 module.exports = new NoteModelClass();

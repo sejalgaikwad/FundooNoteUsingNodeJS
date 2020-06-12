@@ -152,28 +152,47 @@ class NoteControllerClass {
         });
     }
 
-     addCollaborator(req, res) {
+    addCollaborator(req, res) {
         const response = {};
         const collaboratorData = {};
         collaboratorData.noteId = req.params.noteId;
         collaboratorData.collaboratorId = req.body.collaboratorId;
         collaboratorData.userId = req.decoded._id;
         noteServiceClassObject.addCollaborator(collaboratorData)
-          .then(data => {
+        .then(data => {
             response.success = true;
             response.message = "Note Collaborate successfully";
             response.data = data;
             return res.status(200).send(response);
-          })
-          .catch(err => {
+        })
+        .catch(err => {
             response.success = false;
             response.error = err;
             response.data = err;
             return res.status(400).send(response);
-          });
-      
-   
-  }
+        });
+    }
+
+    removeCollaborator(req, res) {
+        const response = {};
+        const collaboratorData = {};
+        collaboratorData.noteId = req.params.noteId;
+        collaboratorData.collaboratorId = req.body.collaboratorId;
+        collaboratorData.userId = req.decoded._id;
+        noteServiceClassObject.removeCollaborator(collaboratorData)
+        .then(data => {
+            response.success = true;
+            response.message = "Collaborate remove successfully form note";
+            response.data = data;
+            return res.status(200).send(response);
+        })
+        .catch(err => {
+            response.success = false;
+            response.error = err;
+            response.data = err;
+            return res.status(400).send(response);
+        });
+    }
 
 }    
 
