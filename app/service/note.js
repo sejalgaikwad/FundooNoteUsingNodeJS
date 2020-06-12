@@ -89,7 +89,20 @@ class NoteServiceClass {
         });
     }
 
-   
-} 
+    addCollaborator(collaboratorData) {
+    return new Promise((resolve, reject) => {
+       noteModelClassObject.updateNote({ _id: collaboratorData.noteId },
+              { $push: { collaborator: collaboratorData.collaboratorId } })
 
+            .then(data => {
+              return resolve(data);
+            })
+        
+            .catch(err => {
+              return reject(err);
+            });
+    
+        })
+} 
+}
 module.exports = new NoteServiceClass();
