@@ -12,12 +12,12 @@ var schema = mongoose.Schema;
 var noteSchema = new schema({                                  
     title: {
         type: String,
-        require: [true, "Title can't be Empty"],
+        require: [true, 'Title can not be Empty'],
         trim: true
     },
     description: {
         type: String,
-        require: [true, "Description can't be Empty"],
+        require: [true, 'Description can not be Empty'],
         trim: true
     },
     user_Id : {
@@ -36,14 +36,21 @@ var noteSchema = new schema({
         type:Boolean,
         default:false
     },
-    color: {
-      type: String
+    color:{
+        type: String
     },
-
+    reminder: {
+        type: String,
+        default: null
+    },
     collaborator: [{
-      type: schema.Types.ObjectId,
-      ref: "User"    
-        }]
+        type: schema.Types.ObjectId,
+        ref: 'User'   
+    }],
+    label: [{
+        type: schema.Types.ObjectId,
+        ref: 'Label'    
+    }]
 }, 
 {
     timestamps: true
@@ -81,7 +88,7 @@ class NoteModelClass{
                     if (data != null) {
                         return resolve(data);
                     } else {
-                        return reject("invalid NoteId");
+                        return reject('invalid NoteId');
                     }
                 })
                 .catch(err => {
@@ -94,7 +101,7 @@ class NoteModelClass{
         return new Promise((resolve, reject) => {
             noteModel.find(findData)
             .then(data => {
-                return resolve(data)
+                return resolve(data);
             })
             .catch(err => {
                 return reject(err);
@@ -105,8 +112,8 @@ class NoteModelClass{
     search(query,filerData) {
         return new Promise((resolve, reject) => {
             noteModel.find({
-                $and: [{$or: [{ title: { $regex: query.searchKey, $options: "i" } },
-                              { description: { $regex: query.searchKey, $options: "i" }} ]},
+                $and: [{$or: [{ title: { $regex: query.searchKey, $options: 'i' } },
+                              { description: { $regex: query.searchKey, $options: 'i' }} ]},
                               { userId: query.userId,isTrash:false}]},filerData)
             .then(data => {
                 if (data !== null) {

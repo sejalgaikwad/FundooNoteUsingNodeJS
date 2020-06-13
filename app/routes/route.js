@@ -27,6 +27,10 @@ routes.get("/getAllArchiveNotes",tokenVerify.tokenVerification,noteController.ge
 routes.get("/search",tokenVerify.tokenVerification,noteController.search);
 routes.post("/addCollaborator/:noteId",tokenVerify.tokenVerification,noteController.addCollaborator);
 routes.post("/removeCollaborator/:noteId",tokenVerify.tokenVerification,noteController.removeCollaborator);
+routes.post("/addLabel/:noteId",tokenVerify.tokenVerification,noteController.addLabel);
+routes.post("/removeLabel/:noteId",tokenVerify.tokenVerification,noteController.removeLabel);
+routes.post("/addReminder/:noteId",tokenVerify.tokenVerification,noteController.addReminder);
+routes.delete("/removeReminder/:noteId",tokenVerify.tokenVerification,noteController.removeReminder);
 
 routes.post("/createLabel", tokenVerify.tokenVerification, labelController.createLabel);
 routes.post("/label/:labelId",tokenVerify.tokenVerification, labelController.updateLabel);

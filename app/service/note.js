@@ -73,6 +73,36 @@ class NoteServiceClass {
         });
     }
 
+  
+    addRemainder(reminderData) {
+        return new Promise((resolve, reject) => {
+            noteModelClassObject.updateNote({ _id: reminderData.noteId },{ remainder: reminderData.remainder })
+            .then(data => {
+                return resolve(data);
+            })
+            .catch(err => {
+                return reject(err);
+            });
+        });
+    }
+ 
+    removeRemainder(reminderData) {
+        return new Promise((resolve, reject) => {
+            noteModelClassObject.updateNote({ _id: reminderData.noteId }, { reminder: null })
+            .then(data => {
+                if (data !== null) {
+                    return resolve(data);
+                } else {
+                    return reject(data);
+                }
+            })
+            .catch(err => {
+                return reject(err);
+            });
+        });
+    }
+
+
     search(searchData) {
         return new Promise((resolve, reject) => {
             noteModelClassObject.search(searchData, {title: 1,description: 1})
@@ -106,6 +136,32 @@ class NoteServiceClass {
         return new Promise((resolve, reject) => {
             noteModelClassObject.updateNote({ _id: collaboratorData.noteId },
                                             { $pull: { collaborator: collaboratorData.collaboratorId } })
+            .then(data => {
+                return resolve(data);
+            })
+            .catch(err => {
+                return reject(err);
+            });
+        })
+    } 
+
+    addLabel(labelData) {
+        return new Promise((resolve, reject) => {
+            noteModelClassObject.updateNote({ _id: labelData.noteId },
+                                            { $push: { label: labelData.labelId } })
+            .then(data => {
+                return resolve(data);
+            })
+            .catch(err => {
+                return reject(err);
+            });
+        })
+    } 
+
+    removeLabel(labelData) {
+        return new Promise((resolve, reject) => {
+            noteModelClassObject.updateNote({ _id: labelData.noteId },
+                                            { $pull: { label: labelData.labelId } })
             .then(data => {
                 return resolve(data);
             })

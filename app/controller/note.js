@@ -77,6 +77,45 @@ class NoteControllerClass {
         });
     }
 
+    addReminder(req, res) {
+        const reminderData = {};
+        reminderData.noteId = req.params.noteId;
+        reminderData.remainder = req.body.remainder;
+        const response = {};
+        noteServiceClassObject.addReminder(reminderData)
+        .then(data => {
+            response.success = true;
+            response.message = "reminder Added successfully";
+            response.data = data;
+            return res.status(200).send(response);
+        })
+        .catch(err => {
+            response.success = false;
+            response.error = err;
+            return res.status(400).send(response);
+        });
+    }
+     
+    removeReminder(req, res) {
+        const reminderData = {};
+        reminderData.noteId = req.params.noteId;
+        reminderData.userId = req.decoded._id;
+        const response = {};
+        noteServiceClassObject.removeReminder(reminderData)
+        .then(data => {
+            response.success = true;
+            response.message = "reminder Deleted successfully";
+            response.data = data;
+            return res.status(200).send(response);
+        })
+        .catch(err => {
+            response.success = false;
+            response.error = "Error while deleting";
+            response.data = err;
+            return res.status(400).send(response);
+        });
+    }      
+
     getAllNotes(req, res) {
         const getAllNotesData = {};
         const response = {}
@@ -194,6 +233,47 @@ class NoteControllerClass {
         });
     }
 
+    addLabel(req, res) {
+        const response = {};
+        const labelData = {};
+        labelData.noteId = req.params.noteId;
+        labelData.labelId = req.body.labelId;
+        labelData.userId = req.decoded._id;
+        noteServiceClassObject.addLabel(labelData)
+        .then(data => {
+            response.success = true;
+            response.message = "Add Label on note successfully";
+            response.data = data;
+            return res.status(200).send(response);
+        })
+        .catch(err => {
+            response.success = false;
+            response.error = err;
+            response.data = err;
+            return res.status(400).send(response);
+        });
+    }
+
+    removeLabel(req, res) {
+        const response = {};
+        const labelData = {};
+        labelData.noteId = req.params.noteId;
+        labelData.labelId = req.body.labelId;
+        labelData.userId = req.decoded._id;
+        noteServiceClassObject.removeLabel(labelData)
+        .then(data => {
+            response.success = true;
+            response.message = "Remove label from note unsuccessfully";
+            response.data = data;
+            return res.status(200).send(response);
+        })
+        .catch(err => {
+            response.success = false;
+            response.error = err;
+            response.data = err;
+            return res.status(400).send(response);
+        });
+    }
 }    
 
 module.exports = new NoteControllerClass();
