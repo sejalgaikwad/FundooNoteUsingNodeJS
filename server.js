@@ -16,9 +16,15 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const expressValidator= require('express-validator');
 const routes = require('./app/routes/route');
+const cron = require('node-cron');
+const moment = require('./service/moment');
 
 const port = process.env.PORT
 const app = express()
+
+cron.schedule('* * * * *', () => {
+    moment.notificationServiceForRemainder();
+});
 
 app.use(expressValidator());
 app.use(bodyParser.urlencoded({ extended: true }));
